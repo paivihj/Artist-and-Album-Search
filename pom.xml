@@ -57,5 +57,10 @@
 			<artifactId>tomcat-jasper-el</artifactId>
 			<version>${tomcat.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.xerial</groupId>
+			<artifactId>sqlite-jdbc</artifactId>
+			<version>3.32.3.2</version>
+		</dependency>
 	</dependencies>
 </project>
