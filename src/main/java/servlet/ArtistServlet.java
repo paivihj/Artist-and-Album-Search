@@ -25,8 +25,6 @@ public class ArtistServlet extends HttpServlet {
 	    	List<Artist> artists = new ArrayList<Artist>();
 	    	
 	    	artists = object.getAllItems();
-	    	
-	    	//req.getAttribute();
 
 	        // pass to the JSP page as an attribute
 	        req.setAttribute("artists", artists);

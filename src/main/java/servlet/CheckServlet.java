@@ -5,6 +5,8 @@ import java.sql.*;
 
 public class CheckServlet {
 	
+	//This class only tests that the database connection works.
+	
 	public static void main(String[] args) {
 		// LUODAAN DATABASE OLIO
 		Database database = new Database();

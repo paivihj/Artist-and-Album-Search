@@ -42,7 +42,6 @@ public class AlbumsDAO {
 			PreparedStatement statement = connection.prepareStatement("SELECT * FROM Album WHERE ArtistId = ?");
 			statement.setInt(1, artist);
 			ResultSet results = statement.executeQuery();
-			String title = results.getString("Title");
 			while (results.next()) {
 				int id = results.getInt("AlbumId");
 				String name = results.getString("Title");
@@ -59,19 +58,26 @@ public class AlbumsDAO {
 		}
     }
 
-    /*public boolean addItem(String newItem) {
+    public List<Album> searchItem(String x) {
     	try {
     		connection = object.connect();
-			PreparedStatement statement = connection.prepareStatement("INSERT INTO Artist (Name) VALUES (?)");
-			statement.setString(1, newItem);
-			statement.executeUpdate();
-		
+    		List<Album> list = new ArrayList<Album>();
+			PreparedStatement statement = connection.prepareStatement("SELECT * FROM Album WHERE Title LIKE ?");
+			statement.setString(1, "%" + x + "%");
+			ResultSet results = statement.executeQuery();
+			while (results.next()) {
+				int id = results.getInt("AlbumId");
+				String name = results.getString("Title");
+				int artistId = results.getInt("ArtistId");
+				Album item = new Album(id, name, artistId);
+				list.add(item);
+			}
 			statement.close();
 			connection.close();
-			return true;
+			return list;
     	} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-    } */ 
+    }  
 
 }

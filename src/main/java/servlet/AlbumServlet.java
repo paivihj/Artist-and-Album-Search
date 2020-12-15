@@ -24,10 +24,16 @@ public class AlbumServlet extends HttpServlet {
     	
     	List<Album> albums = new ArrayList<Album>();
     	
-    	//int artist = Integer.parseInt(req.getParameter("id"));
-    	
-    	albums = object.getAllItems();
-    	
+    	try {
+    	int artist = Integer.parseInt(req.getParameter("ArtistId"));
+    	albums = object.getItem(artist);
+    	if (albums.size()==0) {
+    		Album e = new Album(0, "No albums", artist);
+    		albums.add(e);
+    	}
+    	} catch(Exception e) {
+    		albums = object.getAllItems();
+    	}  	
 
         // pass to the JSP page as an attribute
         req.setAttribute("albums", albums);

@@ -35,27 +35,6 @@ public class ArtistsDAO {
 		}
     }
 
-   /* @Override
-    public ShoppingListItem getItem(String title) {
-    	try {
-			Class.forName("org.sqlite.JDBC");
-			Connection connection = DriverManager.getConnection(URL);
-    
-			statement = connection.prepareStatement("SELECT * FROM ShoppingListItem WHERE title = ?");
-			statement.setString(1, title);
-			results = statement.executeQuery();
-			int id = results.getInt("id");
-			ShoppingListItem item = new ShoppingListItem(id, title);
-		
-			results.close();
-			statement.close();
-			connection.close();
-			return item;
-    	} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-    }*/
-
     public boolean addItem(String newItem) {
     	try {
     		connection = object.connect();
@@ -69,6 +48,27 @@ public class ArtistsDAO {
     	} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-    } 
+    }
+    
+    public List<Artist> searchItem(String x) {
+    	try {
+    		connection = object.connect();
+    		List<Artist> list = new ArrayList<Artist>();
+			PreparedStatement statement = connection.prepareStatement("SELECT * FROM Artist WHERE Name LIKE ?");
+			statement.setString(1, "%" + x + "%");
+			ResultSet results = statement.executeQuery();
+			while (results.next()) {
+				int id = results.getInt("ArtistId");
+				String name = results.getString("Name");
+				Artist item = new Artist(id, name);
+				list.add(item);
+			}
+			statement.close();
+			connection.close();
+			return list;
+    	} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+    }  
 
 }
